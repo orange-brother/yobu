@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Yobu 소개 화면 예시">
+  <rect width="640" height="360" rx="24" fill="#f6f7f9"/>
+  <rect x="116" y="56" width="408" height="248" rx="22" fill="#ffffff" stroke="#dfe3ea" stroke-width="2"/>
+  <circle cx="320" cy="128" r="48" fill="#f8f2e8" stroke="#202124" stroke-width="8"/>
+  <path d="M300 108 L319 154 L345 104" fill="none" stroke="#202124" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="192" y="204" width="256" height="28" rx="14" fill="#eef4ff"/>
+  <rect x="230" y="244" width="180" height="14" rx="7" fill="#d9dee7"/>
+  <circle cx="160" cy="80" r="6" fill="#cfd5df"/>
+  <circle cx="182" cy="80" r="6" fill="#cfd5df"/>
+  <circle cx="204" cy="80" r="6" fill="#cfd5df"/>
+</svg>

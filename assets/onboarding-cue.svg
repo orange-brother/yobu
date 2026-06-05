@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="큐 설정 화면 예시">
+  <rect width="640" height="360" rx="24" fill="#f6f7f9"/>
+  <rect x="28" y="28" width="150" height="304" rx="14" fill="#ffffff" stroke="#dfe3ea"/>
+  <rect x="202" y="28" width="410" height="304" rx="14" fill="#ffffff" stroke="#dfe3ea"/>
+  <text x="226" y="73" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="24" font-weight="800" fill="#202124">큐를 설정합니다</text>
+  <line x1="226" y1="92" x2="574" y2="92" stroke="#dfe3ea" stroke-width="2"/>
+  <text x="226" y="130" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="14" font-weight="800" fill="#202124">큐 타이밍</text>
+  <rect x="226" y="146" width="120" height="34" rx="8" fill="#ffffff" stroke="#c5ccd8"/>
+  <rect x="358" y="146" width="120" height="34" rx="8" fill="#ffffff" stroke="#c5ccd8"/>
+  <rect x="490" y="146" width="70" height="34" rx="8" fill="#ffffff" stroke="#c5ccd8"/>
+  <text x="242" y="168" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13" fill="#202124">시작일</text>
+  <text x="374" y="168" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13" fill="#202124">평일</text>
+  <text x="506" y="168" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13" fill="#202124">15시</text>
+  <text x="226" y="220" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="14" font-weight="800" fill="#202124">큐 소스</text>
+  <rect x="226" y="236" width="280" height="36" rx="8" fill="#ffffff" stroke="#c5ccd8"/>
+  <text x="244" y="259" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="13" fill="#202124">스트레칭 영상.webm</text>
+  <rect x="52" y="74" width="72" height="12" rx="6" fill="#202124"/>
+  <rect x="52" y="128" width="104" height="54" rx="10" fill="#eef4ff" stroke="#b8d4ff"/>
+  <rect x="64" y="146" width="54" height="10" rx="5" fill="#202124"/>
+  <rect x="64" y="162" width="76" height="8" rx="4" fill="#8b929e"/>
+  <rect x="52" y="202" width="92" height="10" rx="5" fill="#d9dee7"/>
+</svg>

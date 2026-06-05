@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="영상 보관함 화면 예시">
+  <rect width="640" height="360" rx="24" fill="#f6f7f9"/>
+  <rect x="28" y="28" width="120" height="304" rx="14" fill="#ffffff" stroke="#dfe3ea"/>
+  <rect x="172" y="28" width="440" height="72" rx="14" fill="#ffffff" stroke="#dfe3ea"/>
+  <text x="196" y="73" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="25" font-weight="800" fill="#202124">영상 보관함</text>
+  <rect x="492" y="52" width="92" height="32" rx="8" fill="#3478f6"/>
+  <text x="512" y="73" font-family="-apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif" font-size="14" font-weight="700" fill="#ffffff">+ 영상 추가</text>
+  <rect x="172" y="120" width="130" height="92" rx="12" fill="#ffffff" stroke="#dfe3ea"/>
+  <rect x="188" y="136" width="98" height="50" rx="8" fill="#202124"/>
+  <rect x="196" y="193" width="76" height="8" rx="4" fill="#d9dee7"/>
+  <rect x="322" y="120" width="130" height="92" rx="12" fill="#ffffff" stroke="#dfe3ea"/>
+  <rect x="338" y="136" width="98" height="50" rx="8" fill="#e9eef7"/>
+  <rect x="346" y="193" width="82" height="8" rx="4" fill="#d9dee7"/>
+  <rect x="472" y="120" width="130" height="92" rx="12" fill="#ffffff" stroke="#dfe3ea"/>
+  <rect x="488" y="136" width="98" height="50" rx="8" fill="#f8f2e8"/>
+  <rect x="496" y="193" width="70" height="8" rx="4" fill="#d9dee7"/>
+  <rect x="52" y="76" width="72" height="12" rx="6" fill="#202124"/>
+  <rect x="52" y="132" width="72" height="30" rx="8" fill="#e8f1ff"/>
+  <rect x="52" y="182" width="62" height="10" rx="5" fill="#d9dee7"/>
+</svg>

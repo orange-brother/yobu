@@ -1,0 +1,64 @@
+{
+  "name": "yobu",
+  "version": "0.1.0",
+  "description": "Korean macOS menu bar app for desktop stage cues.",
+  "main": "out/main/index.js",
+  "author": "orange-brother",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orange-brother/yobu.git"
+  },
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "vue-tsc --noEmit && electron-vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run",
+    "package:mac": "pnpm build && electron-builder --mac dmg",
+    "sample:transparent-video": "electron scripts/generate-transparent-sample.cjs samples/transparent-stage-sample.webm"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "express": "^5.2.1",
+    "vue": "^3.5.13",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8",
+    "electron-vite": "^2.3.0",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8",
+    "vue-tsc": "^2.1.10"
+  },
+  "build": {
+    "appId": "com.orangebrother.yobu",
+    "productName": "Yobu",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**",
+      "assets/**",
+      "README.md",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "build/icon.icns",
+      "target": [
+        "dmg"
+      ],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "identity": null
+    },
+    "dmg": {
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    }
+  }
+}

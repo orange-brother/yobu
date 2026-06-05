@@ -1,0 +1,20 @@
+.DS_Store
+
+.env
+.env.*
+!.env.example
+
+node_modules/
+dist/
+out/
+
+*.log
+
+# Internal planning docs live in the private Obsidian vault.
+CONTEXT.md
+SPEC.md
+IMPLEMENTATION_PLAN.md
+docs/yobu-product-draft.md
+docs/install-first-run.md
+docs/adr/
+docs/internal/
