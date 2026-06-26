@@ -167,9 +167,20 @@ function clearPendingDueCues(): void {
   activeDueBatchMinuteKey = null
 }
 
+function clearCalendarEventCache(): void {
+  cachedCalendarEventsByCalendarId = new Map<string, GoogleCalendarEvent[]>()
+  cachedCalendarIdsKey = ''
+  calendarEventsFetchedAt = 0
+}
+
 function notifyStateChanged(): void {
   refreshTrayMenu()
   scheduleStateChanged()
+}
+
+function notifyCalendarConnectionInvalidated(): void {
+  clearCalendarEventCache()
+  notifyStateChanged()
 }
 
 function setupTray(): void {
@@ -515,7 +526,7 @@ app.whenReady().then(async () => {
       void openNextPendingDueCue()
     }
   })
-  googleCalendar = new GoogleCalendarService(store)
+  googleCalendar = new GoogleCalendarService(store, notifyCalendarConnectionInvalidated)
   mcpServer = startYobuMcpServer(new YobuControlService({
     store,
     stage,

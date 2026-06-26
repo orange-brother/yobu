@@ -13,6 +13,8 @@ import { join } from 'node:path'
 
 import { app, safeStorage, shell } from 'electron'
 
+import { googleCalendarConnectionExpiredMessage, isUnusableGoogleRefreshTokenError } from '../shared/googleOAuth'
+
 const credentialsFileName = 'google-calendar-credentials.json'
 const calendarReadonlyScope = 'https://www.googleapis.com/auth/calendar.readonly'
 const authEndpoint = 'https://accounts.google.com/o/oauth2/v2/auth'
@@ -52,6 +54,18 @@ interface LoopbackSession {
   redirectUri: string
   waitForCode: () => Promise<string>
   cancel: (message?: string) => void
+}
+
+class GoogleOAuthError extends Error {
+  readonly code?: string
+  readonly description?: string
+
+  constructor(message: string, options: { code?: string, description?: string }) {
+    super(message)
+    this.name = 'GoogleOAuthError'
+    this.code = options.code
+    this.description = options.description
+  }
 }
 
 function clientId(): string {
@@ -147,12 +161,14 @@ async function pathExists(path: string): Promise<boolean> {
 export class GoogleCalendarService {
   private readonly store: AppStore
   private readonly credentialsPath: string
+  private readonly onConnectionInvalidated: () => void
   private accessToken: { value: string, expiresAt: number } | null = null
   private pendingLoopbackSession: LoopbackSession | null = null
 
-  constructor(store: AppStore) {
+  constructor(store: AppStore, onConnectionInvalidated: () => void = () => {}) {
     this.store = store
     this.credentialsPath = join(app.getPath('userData'), credentialsFileName)
+    this.onConnectionInvalidated = onConnectionInvalidated
   }
 
   async getStatus(): Promise<GoogleCalendarConnectionStatus> {
@@ -356,7 +372,10 @@ export class GoogleCalendarService {
     })
     const data = await response.json() as TokenResponse
     if (!response.ok) {
-      throw new Error(googleErrorMessage(data, 'Google token 요청에 실패했습니다.'))
+      throw new GoogleOAuthError(googleErrorMessage(data, 'Google token 요청에 실패했습니다.'), {
+        code: typeof data.error === 'string' ? data.error : undefined,
+        description: data.error_description,
+      })
     }
     return data
   }
@@ -367,11 +386,21 @@ export class GoogleCalendarService {
     }
 
     const refreshToken = await this.readRefreshToken()
-    const token = await this.requestToken({
-      client_id: clientId(),
-      refresh_token: refreshToken,
-      grant_type: 'refresh_token',
-    })
+    let token: TokenResponse
+    try {
+      token = await this.requestToken({
+        client_id: clientId(),
+        refresh_token: refreshToken,
+        grant_type: 'refresh_token',
+      })
+    }
+    catch (error) {
+      if (isUnusableGoogleRefreshTokenError(error)) {
+        await this.invalidateConnection()
+        throw new Error(googleCalendarConnectionExpiredMessage)
+      }
+      throw error
+    }
 
     if (!token.access_token) {
       throw new Error('Google access token을 갱신할 수 없습니다.')
@@ -438,6 +467,13 @@ export class GoogleCalendarService {
     const raw = await readFile(this.credentialsPath, 'utf8')
     const parsed = JSON.parse(raw) as StoredCredentials
     return safeStorage.decryptString(Buffer.from(parsed.encryptedRefreshToken, 'base64'))
+  }
+
+  private async invalidateConnection(): Promise<void> {
+    this.accessToken = null
+    await rm(this.credentialsPath, { force: true })
+    await this.store.updateCalendarConnection(undefined)
+    this.onConnectionInvalidated()
   }
 
   private async writeRefreshToken(refreshToken: string): Promise<void> {

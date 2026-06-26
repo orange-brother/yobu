@@ -431,6 +431,16 @@ function setMessage(message: string) {
   scheduleToastDismiss(3200)
 }
 
+function displayErrorMessage(caught: unknown, fallback: string): string {
+  if (!(caught instanceof Error)) {
+    return fallback
+  }
+
+  return caught.message
+    .replace(/^Error invoking remote method ['"][^'"]+['"]:\s*Error:\s*/, '')
+    .replace(/^Error:\s*/, '')
+}
+
 function setError(message: string) {
   error.value = message
   notice.value = ''
@@ -468,7 +478,7 @@ async function run<T>(action: () => Promise<T>, options: { success?: string } = 
     return result
   }
   catch (caught) {
-    setError(caught instanceof Error ? caught.message : '처리 중 오류가 발생했습니다.')
+    setError(displayErrorMessage(caught, '처리 중 오류가 발생했습니다.'))
     return undefined
   }
   finally {
@@ -571,7 +581,7 @@ async function loadCalendarStatus() {
     calendarStatus.value = {
       configured: false,
       connected: false,
-      error: caught instanceof Error ? caught.message : 'Google Calendar 상태를 확인할 수 없습니다.',
+      error: displayErrorMessage(caught, 'Google Calendar 상태를 확인할 수 없습니다.'),
     }
   }
 }
@@ -587,7 +597,8 @@ async function loadGoogleCalendars() {
   }
   catch (caught) {
     googleCalendars.value = []
-    setError(caught instanceof Error ? caught.message : '캘린더 목록을 불러올 수 없습니다.')
+    await loadCalendarStatus()
+    setError(displayErrorMessage(caught, '캘린더 목록을 불러올 수 없습니다.'))
   }
 }
 
@@ -619,7 +630,7 @@ async function connectGoogleCalendar() {
     if (calendarConnectAttempt !== attemptId) {
       return
     }
-    setError(caught instanceof Error ? caught.message : 'Google Calendar를 연결할 수 없습니다.')
+    setError(displayErrorMessage(caught, 'Google Calendar를 연결할 수 없습니다.'))
   }
   finally {
     if (calendarConnectAttempt === attemptId) {
@@ -716,7 +727,7 @@ async function loadEditorVideoUrl(videoId: string | undefined) {
     editorVideoUrl.value = await window.stageApi.getVideoUrl(videoId)
   }
   catch (caught) {
-    setError(caught instanceof Error ? caught.message : '영상 미리보기를 불러올 수 없습니다.')
+    setError(displayErrorMessage(caught, '영상 미리보기를 불러올 수 없습니다.'))
   }
 }
 
