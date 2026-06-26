@@ -1,4 +1,8 @@
-# Yobu
+<p align="center">
+  <img src="assets/app-icon.png" alt="Yobu app icon" width="96" height="96">
+</p>
+
+<h1 align="center">Yobu</h1>
 
 놓치기 쉬운 순간을 영상으로 알려주는 macOS 메뉴바 리마인더.
 
